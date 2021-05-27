@@ -15,16 +15,17 @@ import RPi.GPIO as GPIO
 import spidev
 
 gpioSetting()
-heatBulb = 6
-led = 13
-fan = 19
-waterPump = 26
+heatBulb = 26
+led = 19
+fan = 6
+waterPump = 13
 
 global soilValue, waterValue, tem, hum, templateData
 soilValue = 0.0
 waterValue = 0.0
 tem = 0.0
 hum = 0.0
+templateData = {}
 
 app = Flask(__name__)
 #기본주소('/')로 들어오면
@@ -33,7 +34,7 @@ app = Flask(__name__)
 def home():
     return render_template('index_04.html',  **templateData) #index.html에 전체 led현황을 함께 전달 
 
-# Web에 display 클래스
+# Web에 display 
 class Thread1(threading.Thread):
     def run(self) :
         global soilValue, waterValue, tem, hum
@@ -43,14 +44,14 @@ class Thread1(threading.Thread):
 class Thread2(threading.Thread):
     def run(self):
         # 센서에서 값 받아오기
+        print("hiu")
         while(True):
-            print("thread3 시작")
+            print("thread2 시작")
             try:
                 global soilValue, waterValue, tem, hum, templateData
                 soilValue = read_spi_adc(1) ## MCP3008포트, 원래 0 / 지금은 포트 1
                 waterValue = round((readAnalog(WATER_CHANNEL) * 3.3/1024) * 100, 1) # *100 은 일부러 값을 높인 것
                 tem, hum = getDHTdata()
-
                 with sql.connect(dbName) as con :
                     cur = con.cursor()
                 # 데이터 db에 삽입  
@@ -69,13 +70,18 @@ class Thread2(threading.Thread):
                 }
             finally:
                 cur.close()
-# 온도, 습도 -> 팬 작동, 중지
+# 컨트롤러
 class Thread3(threading.Thread):
     def run(self) -> None:
-        while(True):
-            global soilValue, waterValue, tem, hum
-            print(f'온도: {tem} 습도: {hum} 토양습도: {soilValue} 물 수위: {waterValue}')
-            try:
+        try:
+            
+            while(True):
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(led,GPIO.OUT) #DC팬
+                GPIO.output(led,True) 
+                print("thread3 시작")
+                global soilValue, waterValue, tem, hum
+                print(f'온도: {tem} 습도: {hum} 토양습도: {soilValue} 물 수위: {waterValue}')
                 if tem > 20 or hum > 50:
                     print(f"팬이 작동 됩니다. 현재 온도: {tem} 현재 습도: {hum}")
                     GPIO.setmode(GPIO.BCM)
@@ -83,64 +89,29 @@ class Thread3(threading.Thread):
                     GPIO.output(fan,True) 
                 else:
                     print("팬이 중지 됩니다")
-                    GPIO.output(heatBulb,False) 
-            finally:
-                GPIO.cleanup() 
-            try:
+                    GPIO.output(fan,False) 
+
                 if tem < 15:
                     print(f"열전구가 작동 됩니다. 현재 온도: {tem}")
                     GPIO.setmode(GPIO.BCM)
                     GPIO.setup(heatBulb,GPIO.OUT) #열전구
                     GPIO.output(heatBulb,True) 
-            finally:
-                GPIO.cleanup() 
+                else :
+                    print("열전구 중지 됩니다")
+                    GPIO.output(heatBulb,False) 
                     
-
-
-
-# class Thread4(threading.Thread):
-#     def run(self) -> None:
-#         while(True):
-#             global soilValue, waterValue, tem, hum
-#             try:
-#                 if tem < 15:
-#                     print(f"열전구가 작동 됩니다. 현재 온도: {tem}")
-#                     GPIO.setmode(GPIO.BCM)
-#                     GPIO.setup(heatBulb,GPIO.OUT) #열전구
-#                     GPIO.output(heatBulb,True) 
-#                 else :
-#                     print("열전구가 중지 됩니다")
-#                     GPIO.output(heatBulb,False) 
-#                     sleep(1)
-#             finally:
-#                 GPIO.cleanup() 
-#             sleep(1)
-
-# class Thread5(threading.Thread):
-#     def run(self) -> None:
-#         while(True):
-#             global soilValue, waterValue, tem, hum
-#             try:
-#                 if soilValue > 100:
-#                     print(f"모터, 팬이 작동 됩니다. 현재 토양습도: {soilValue}")
-#                     GPIO.setmode(GPIO.BCM)
-#                     GPIO.setup(waterPump,GPIO.OUT) #워터펌프
-#                     GPIO.setup(fan,GPIO.OUT) #팬
-#                     GPIO.output(waterPump,True) 
-#                     GPIO.output(fan,True) 
-#                 else :
-#                     print("열전구가 중지 됩니다")
-#                     GPIO.output(waterPump,False) 
-#                     GPIO.output(fan,False) 
-#                     sleep(1)
-#             finally:
-#                 GPIO.cleanup() 
-#             sleep(1)
-
-# class Thread6(threading.Thread):
-#     def run(self) -> None:
-
-
+                if soilValue < 80:
+                    GPIO.setmode(GPIO.BCM)
+                    GPIO.setup(waterPump,GPIO.OUT)
+                    GPIO.output(waterPump,True) 
+                    print("펌프 작동 됩니다")
+                else :
+                    print("펌프가 중지 됩니다")
+                    GPIO.output(waterPump,False) 
+                sleep(2)
+        finally:
+            GPIO.cleanup() 
+            print("GPIO를 제거합니다")
 
 t1 = Thread1()
 t2 = Thread2()
@@ -149,3 +120,4 @@ t3 = Thread3()
 t1.start()
 t2.start()
 t3.start()
+    
