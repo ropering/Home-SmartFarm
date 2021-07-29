@@ -23,7 +23,7 @@
     </tr>
       <tr>
         <th>프로젝트 개요</th>
-        <th>자동화 하드웨어 <br> 웹 사이트 </th>
+        <th>하드웨어 자동화 <br> 웹 사이트 </th>
         <th>개발환경&nbsp;</th>
         <th>Python (3.6)  <br> SQLite <br> Raspberry Pi 4 </th>
     </tr>
