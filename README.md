@@ -70,18 +70,19 @@
 ![125751351-0e7d64b0-1f6a-4d42-9662-76b0a4f5388e](https://user-images.githubusercontent.com/50795314/127453388-08f431b9-4076-4630-9471-2501ac1fd5c9.jpg)
 
 
-### 📉 시연 영상
+### 📉 시연, 발표 영상
 [![시연영상](http://img.youtube.com/vi/kdlROiCZjpI/0.jpg)](https://youtu.be/kdlROiCZjpI?t=0s) 
 <br> https://www.youtube.com/watch?v=kdlROiCZjpI
 
+[![시연영상](http://img.youtube.com/vi/ZPF5WIfMyCs/0.jpg)](https://youtu.be/ZPF5WIfMyCs?t=0s) 
+<br> https://www.youtube.com/watch?v=ZPF5WIfMyCs
+
 ### 📑 Role & Member
-
-
 <table>
     <tr>
         <th width="16%">업무 / 구성원</th>
         <th width="17%">오명균</th>
-        <th width="14%">김상준</th>        
+        <th width="17%">김상준</th>        
         <th width="14%">이승욱</th>        
     </tr>
     <tr>
@@ -107,6 +108,7 @@
         </th>
         <th>
             <br>화면설계 <br>템플릿 적용
+            <br>소스 취합 및 수정
         </th>
     </tr>
 </table>
