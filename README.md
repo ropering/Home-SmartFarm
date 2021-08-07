@@ -23,7 +23,7 @@
     </tr>
       <tr>
         <th>프로젝트 개요</th>
-        <th>자동화 하드웨어 <br> 웹 사이트 </th>
+        <th>하드웨어 자동화 <br> 웹 사이트 </th>
         <th>개발환경&nbsp;</th>
         <th>Python (3.6)  <br> SQLite <br> Raspberry Pi 4 </th>
     </tr>
@@ -59,21 +59,30 @@
 스마트 팜 내부 환경에 따른 자동화 서비스 & 실시간 모니터링 웹사이트
 
 
-### 📚 하드웨어 제작
+### 📚 스마트팜 외부
+![125751281-3f84e088-43bc-40ce-b28f-83b112ff4fd4](https://user-images.githubusercontent.com/50795314/127452711-22e0d0b9-6c63-41cb-abf6-ce24604982ce.jpg)
+![KakaoTalk_20210413_214847874](https://user-images.githubusercontent.com/50795314/127452720-0405f1f9-b5c0-438a-a73f-4084afdac57f.jpg)
+![125751375-e4753d74-3e4a-4dcc-ba05-420762c4c6d4](https://user-images.githubusercontent.com/50795314/127452729-1c14e394-d475-42da-b3be-a57a7ecfcf9d.jpg)
+
 
 ### 🖥️ 스마트 팜 내부
+![125751367-30a2c3f2-f426-4cd2-b55e-6af618b56fde](https://user-images.githubusercontent.com/50795314/127452749-58e9f0cb-4a28-4a28-9b35-7deb6e5ee9a0.jpg)
+![125751351-0e7d64b0-1f6a-4d42-9662-76b0a4f5388e](https://user-images.githubusercontent.com/50795314/127453388-08f431b9-4076-4630-9471-2501ac1fd5c9.jpg)
 
-### 📉 시연 영상
 
+### 📉 시연, 발표 영상
+[![시연영상](http://img.youtube.com/vi/kdlROiCZjpI/0.jpg)](https://youtu.be/kdlROiCZjpI?t=0s) 
+<br> https://www.youtube.com/watch?v=kdlROiCZjpI
+
+[![시연영상](http://img.youtube.com/vi/ZPF5WIfMyCs/0.jpg)](https://youtu.be/ZPF5WIfMyCs?t=0s) 
+<br> https://www.youtube.com/watch?v=ZPF5WIfMyCs
 
 ### 📑 Role & Member
-
-
 <table>
     <tr>
         <th width="16%">업무 / 구성원</th>
-        <th width="14%">오명균</th>
-        <th width="14%">김상준</th>        
+        <th width="17%">오명균</th>
+        <th width="17%">김상준</th>        
         <th width="14%">이승욱</th>        
     </tr>
     <tr>
@@ -99,6 +108,7 @@
         </th>
         <th>
             <br>화면설계 <br>템플릿 적용
+            <br>소스 취합 및 수정
         </th>
     </tr>
 </table>
